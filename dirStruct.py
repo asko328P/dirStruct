@@ -1,10 +1,10 @@
 import os
 
-textFile=open('dirStruct.txt', 'w')
+textFile=open('dirStructOutput.txt', 'w')
 currentFilePath=os.path.dirname(os.path.abspath(__file__))
 
 howManyLevels=10
-indentationWidth=3
+indentationWidth=7
 showHiddenFilesAndFolders=True
 
 indentationBeforeFolder=		"│       "
@@ -20,18 +20,18 @@ indentationLastFile=			"└──────"
 
 #constructs the strings which are used for visual representation of the tree
 if(indentationWidth!=0):
-	indentationBeforeFolder = "│ "
-	indentationFolder = "├[ ]"
-	indentationBeforeLastFolder = "│ "
-	indentationLastFolder = "└[ ]"
+	indentationBeforeFolder = 		"│ "
+	indentationFolder = 			"├[ ]"
+	indentationBeforeLastFolder = 	"│ "
+	indentationLastFolder = 		"└[ ]"
 
-	indentationBeforeFile = "│ "
-	indentationFile = "├"
-	indentationBeforeLastFile = "│ "
-	indentationLastFile = "└"
+	indentationBeforeFile = 		"│ "
+	indentationFile = 				"├"
+	indentationBeforeLastFile = 	"│ "
+	indentationLastFile = 			"└"
 
-	indentationSpaceSymbol = " "
-	indentationContinuationSymbol="─"
+	indentationSpaceSymbol = 		" "
+	indentationContinuationSymbol=	"─"
 
 	for i in range(indentationWidth):
 		indentationBeforeFolder = indentationBeforeFolder[:1]+indentationSpaceSymbol+indentationBeforeFolder[1:]
