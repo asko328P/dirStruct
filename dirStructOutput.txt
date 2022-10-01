@@ -1,0 +1,14 @@
+[ ]/home/asko/dirStruct/
+ ├───────[ ]exampleFolder/
+ │        ├───────[ ]folder2-1/
+ │        │        └───────document3
+ │        ├───────[ ]folder2-2/
+ │        ├───────[ ]folder2-3/
+ │        │        ├───────[ ]folder3-1/
+ │        │        └───────[ ]folder3-2/
+ │        ├───────document1
+ │        └───────document2
+ ├───────README.md
+ ├───────README.md~
+ ├───────dirStruct.py
+ └───────dirStructOutput.txt
