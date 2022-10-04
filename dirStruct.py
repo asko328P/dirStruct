@@ -4,7 +4,7 @@ import configparser
 from StringOutput import StringOutputClass
 from configCreator import createConfig
 
-currentFilePath = os.path.dirname(os.path.abspath(__file__))
+
 
 createConfig()
 
@@ -65,41 +65,62 @@ if (indentationWidth != 0):
 
 
 def recursiveFolder(pathname, level):
+	# Do not go deeper than a certain level
 	if (level > howManyLevels):
 		return
 
+	# Get all items in directory
 	entryList = os.listdir(pathname)
+
+	# Remove entries starting with '.', as those should be hidden
 	if (showHiddenFilesAndFolders == 'no'):
 		for item in entryList:
 			if item.startswith("."):
 				entryList.remove(item)
 
 	onlyFolderList = []
+	# Extracting only folders from all entries, since those should be displayed first
 	for item in entryList:
 		if (os.path.isdir(pathname + "/" + item)):
 			onlyFolderList.append(item)
+
+	# Alphabetically sorting files and folders
 	entryList.sort()
 	onlyFolderList.sort()
+
+	# Removing items from all entries which are determined to be folders
 	for itemToRemove in onlyFolderList:
 		entryList.pop(entryList.index(itemToRemove))
 
+	# Going through all folders first
 	for folder in onlyFolderList:
+		# Inserting a leading character, to offset the the '[' sign from '[ ]' of the previous folder, so it is nicely spaced
 		stringToWrite = " "
 		output.output_a_string(stringToWrite)
-		if (len(entryList) == 0 and onlyFolderList.index(folder) == len(onlyFolderList) - 1):
+
+		# If it is the last folder and there are no files after it, write out the according prefacing strings
+		if (len(entryList) == 0 and folder == onlyFolderList[-1]):
+			# Construct a string prefacing folder according to the current level, by default using "│     " and "└──────[ ]"
 			stringToWrite = indentationBeforeLastFolder * (level - 1) + indentationLastFolder + folder + "/" + "\n"
 			output.output_a_string(stringToWrite)
 		else:
+			# Same thing, with the difference of using "│       " and "├──────[ ]", indicating there are more files or folders below it
 			stringToWrite = indentationBeforeFolder * (level - 1) + indentationFolder + folder + "/" + "\n"
 			output.output_a_string(stringToWrite)
+		# Raise level, indicating going one level deeper
 		level += 1
+		# Recursively call the same function
 		recursiveFolder(pathname + "/" + folder, level)
+		# Lower level again, because all folder
 		level -= 1
+
+	# Lower level, because these files are inside the previous folder
 	level -= 1
+	# Go through all files, same as with folders except recursively calling the function again
 	for file in entryList:
 		stringToWrite = " "
 		output.output_a_string(stringToWrite)
-		if (entryList.index(file) == len(entryList) - 1):
+		if (file == entryList[-1]):
 			stringToWrite = indentationBeforeLastFile * (level) + indentationLastFile + file + "\n"
 			output.output_a_string(stringToWrite)
 			continue
@@ -110,6 +131,7 @@ def recursiveFolder(pathname, level):
 
 output = StringOutputClass()
 
+currentFilePath = os.path.dirname(os.path.abspath(__file__))
 stringToWrite = "[ ]" + currentFilePath + "/" + "\n"
 output.output_a_string(stringToWrite)
 
