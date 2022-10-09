@@ -6,7 +6,7 @@ from configCreator import createConfig
 
 
 
-createConfig()
+
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -19,7 +19,7 @@ while(('DEFAULT' in config)==False):
 if(('USER' in config) == True):
 	howManyLevels=int(config['USER']['howManyLevels'])
 	indentationWidth = int(config['USER']['indentationWidth'])
-	showHiddenFilesAndFolders = config['USER']['indentationWidth']
+	showHiddenFilesAndFolders = config['USER']['showHiddenFilesAndFolders']
 else:
 	howManyLevels =int(config['DEFAULT']['howManyLevels'])
 	indentationWidth =int(config['DEFAULT']['indentationWidth'])
