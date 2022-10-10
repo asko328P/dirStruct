@@ -77,6 +77,8 @@ def recursiveFolder(pathname, level):
 		for item in entryList:
 			if item.startswith("."):
 				entryList.remove(item)
+			if item.startswith("__"):
+				entryList.remove(item)
 
 	onlyFolderList = []
 	# Extracting only folders from all entries, since those should be displayed first

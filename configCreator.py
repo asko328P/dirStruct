@@ -5,7 +5,6 @@ def createConfig():
     config['DEFAULT'] = {'howManyLevels': '10',
                          'indentationWidth': '5',
                          'showHiddenFilesAndFolders': 'no'}
-    print("created config")
 
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
@@ -21,7 +20,6 @@ def createCustomConfig(howManyLevels, indentationWidth, showHiddenFilesAndFolder
     config['USER'] = {'howManyLevels': str(howManyLevels),
                          'indentationWidth': str(indentationWidth),
                          'showHiddenFilesAndFolders': showHiddenFilesAndFolders}
-    print("created custom config")
 
     with open('config.ini', 'w') as configfile:
         config.write(configfile)

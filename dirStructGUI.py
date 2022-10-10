@@ -3,11 +3,12 @@ import os
 import configCreator
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 
 class Main:
     def __init__(self):
+        self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         gladeFile= "gladeFiles/main.glade"
         self.builder=Gtk.Builder()
         self.builder.add_from_file(gladeFile)
@@ -21,6 +22,11 @@ class Main:
 
         self.buttonGenerateText = self.builder.get_object("GenerateText")
         self.buttonGenerateText.connect("clicked", self.generateText)
+
+        self.CopyText = self.builder.get_object("CopyText")
+        self.CopyText.connect("clicked", self.copyText)
+
+        self.fileTextView = self.builder.get_object("fileTextView")
 
 
         file=open("dirStructOutput.txt","r")
@@ -37,8 +43,6 @@ class Main:
         window.show()
 
     def getSpinnerValues(self, widget):
-        print(self.spinnerFolderDepth.get_value_as_int())
-        print(self.spinnerFolderWidth.get_value_as_int())
         configCreator.createCustomConfig(self.spinnerFolderDepth.get_value_as_int(),self.spinnerFolderWidth.get_value_as_int())
 
     def generateText(self, widget):
@@ -47,6 +51,9 @@ class Main:
         file = open("dirStructOutput.txt", "r")
         self.TextViewBuffer.set_text(file.read())
         file.close()
+
+    def copyText(self, widget):
+        self.clipboard.set_text(self.TextViewBuffer.get_text(self.TextViewBuffer.get_start_iter(),self.TextViewBuffer.get_end_iter(),False), -1)
 
 if __name__=='__main__':
     main=Main()
